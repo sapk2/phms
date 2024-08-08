@@ -46,6 +46,11 @@
                         </div>
                     </div>
                     @endif
+                    @if (session('login'))
+                            <div class="flex items-center justify-center text-red-500">
+                                {{ session('login') }}
+                            </div>
+                        @endif
                     <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                         Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
@@ -57,8 +62,7 @@
                         {{ __('Or login with') }}
                     </p>
                     <div class="flex justify-center">
-                    <a href="{{ route('login.google')}}" ><img src="{{asset('/img/google-plus.png')}}" class="w-11" alt=""></a>
-                        <!--<a href="{{ route('login.google') }}" class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"><img src="{{asset('/img/google-plus.png')}}" class="w-5" alt="">Google</a>-->
+                        <a href="{{ route('login.google')}}"><img src="{{asset('/img/google-plus.png')}}" class="w-11" alt=""></a>
                     </div>
                 </div>
             </div>
