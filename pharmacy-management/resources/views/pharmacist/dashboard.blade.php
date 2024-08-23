@@ -1,4 +1,6 @@
 @include('layouts.app')
 @section('content')
-<div class="grid"> nmhmhghjjffgfh</div>
+<div class="grid">
+    
+</div>
 @endsection

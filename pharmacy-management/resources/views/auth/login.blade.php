@@ -1,6 +1,13 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <section class="bg-gray-50 dark:bg-white-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <a href="{{ url('/') }}" class="absolute top-4 left-4 flex items-center text-gray-900 dark:text-black">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            <span class="ml-2 text-sm font-medium">Back</span>
+        </a>
+
         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black">
             <img class="w-11 h-11 mr-2" src="{{asset('/img/logo.png')}}" alt="logo">
             Pharmatech
@@ -47,10 +54,10 @@
                     </div>
                     @endif
                     @if (session('login'))
-                            <div class="flex items-center justify-center text-red-500">
-                                {{ session('login') }}
-                            </div>
-                        @endif
+                    <div class="flex items-center justify-center text-red-500">
+                        {{ session('login') }}
+                    </div>
+                    @endif
                     <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                     <p class="text-sm font-light text-red-500 dark:text-red-400">
                         Don’t have an account yet? <a href="register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>

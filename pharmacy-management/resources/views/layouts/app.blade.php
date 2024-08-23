@@ -14,6 +14,7 @@
    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
    <script src="https://kit.fontawesome.com/beb264445c.js" crossorigin="anonymous"></script>
    <!-- Scripts -->
+   <script src="//unpkg.com/alpinejs" defer></script>
    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -28,20 +29,20 @@
             <hr class="color-red">
          </div>
          <div class="mt-5">
-            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-house"> Dashboard</i></a>
-            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-user"> Patient</i></a>
-            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-tablets"> Medicine</i></a>
-            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-prescription"> Prescription</i></a>
-            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-warehouse"> Inventory</i></a>
-            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-brands fa-adversal"> sales Management</i></a>
-            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-newspaper"> Report</i></a>
+            <a href="{{route('pharmacist.dashboard')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-house"> Dashboard</i></a>
+            <a href="{{route('pharmacist.patientmngt.patientindex')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-user"> Patient</i></a>
+            <a href="{{route('pharmacist.medicinemngt.medindex')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-tablets"> Medicine</i></a>
+            <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-prescription"> Prescription</i></a>
+            <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-warehouse"> Inventory</i></a>
+            <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-brands fa-adversal"> sales Management</i></a>
+            <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-newspaper"> Report</i></a>
             <div class="relative">
-               <a href="" id="settingBtn" class="px-4 py-2 hover:bg-gray-300 block border-b  border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-wrench"> Setting</i></a>
+               <a href="#" id="settingBtn" class="px-4 py-2 hover:bg-gray-300 block border-b  border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-wrench"> Setting</i></a>
                <!--Dropdown Menu--->
                <div id="dropdownMenu" class="absolute hidden bg-white border border-gray-300 mt-1 ml-1 rounded-md shadow-lg">
-                  <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-users-gear"> Manageuser</i></a>
-                  <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-house-medical"> General setting</i></a>
-                  <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-address-card"> Profile</i></a>
+                  <a href="{{route('pharmacist.user.userindex')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-users-gear"> Manageuser</i></a>
+                  <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-house-medical"> General setting</i></a>
+                  <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-address-card"> Profile</i></a>
                </div>
             </div>
             <script>
@@ -75,12 +76,16 @@
          </div>
 
       </div>
-   </div>
-
-   <!--page content-->
+       <!--page content-->
    <div  class="flex-1 p-4">
+   <div class="top-0 p-3 bg-blue-900 w-full text-white right-full inset-y-0 right-0 justify-end inline-flex">
+                Hello, <a href="#"> <span class="pr-2 pl-1"> {{Auth::user()->name}} </span></a>
+                </div>
       @yield('content')
    </div>
+   </div>
+
+  
 </body>
 
 </html>
