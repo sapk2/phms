@@ -3,6 +3,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\dashboardcontroller;
 use App\Http\Controllers\Pagecontroller;
 use App\Http\Controllers\pharmaciancontroller;
+use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ispharmacist;
@@ -36,9 +37,24 @@ Route::get('/medicinemngt/{id}/mededit',[pharmaciancontroller::class,'mededit'])
 Route::post('/medicinemngt/{id}/medupdate',[pharmaciancontroller::class,'medupdate'])->name('pharmacist.medicinemngt.medupdate');
 Route::get('/medicinemngt/{id}/meddelete',[pharmaciancontroller::class,'meddelete'])->name('pharmacist.medicinemngt.meddelete');
 
+//prescription detail 
+Route::get('/prescriptiondetail', [PharmacianController::class, 'prescribeindex'])->name('pharmacist.prescriptiondetail.prescribeindex');
+Route::get('/prescriptiondetail/create', [PharmacianController::class, 'prescribecreate'])->name('pharmacist.prescriptiondetail.prescribecreate');
+Route::post('/prescriptiondetail/store', [PharmacianController::class, 'prescribestore'])->name('pharmacist.prescriptiondetail.prescribestore');
+Route::get('/prescriptiondetail/{id}/prescribeedit', [PharmacianController::class, 'prescribeedit'])->name('pharmacist.prescriptiondetail.prescribeedit');
+Route::post('/prescriptiondetail/{id}/prescribeupdate', [PharmacianController::class, 'prescribeupdate'])->name('pharmacist.prescriptiondetail.prescribeupdate'); // Change to PUT
+Route::get('/prescriptiondetail/{id}/prescribedelete', [PharmacianController::class, 'prescribedelete'])->name('pharmacist.prescriptiondetail.prescribedelete');
+Route::get('pharmacist/prescriptiondetail/{id}', [pharmaciancontroller::class, 'show'])->name('pharmacist.prescriptiondetail.show');
 
 
 
+//prescription
+Route::get('/prescriptions', [PrescriptionController::class, 'index'])->name('pharmacist.prescriptions.index'); // List all prescriptions
+Route::get('/create', [PrescriptionController::class, 'create'])->name('pharmacist.prescriptions.create'); // Show create prescription form
+Route::post('/store', [PrescriptionController::class, 'store'])->name('pharmacist.prescriptions.store'); // Store a new prescription
+Route::get('/edit/{id}', [PrescriptionController::class, 'edit'])->name('pharmacist.prescriptions.edit'); // Show edit form for a prescription
+Route::post('/update/{id}', [PrescriptionController::class, 'update'])->name('pharmacist.prescriptions.update'); // Update an existing prescription
+Route::DELETE('/delete/{id}', [PrescriptionController::class, 'delete'])->name('pharmacist.prescriptions.delete'); // Delete a prescription
 
 
 

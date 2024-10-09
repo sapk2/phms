@@ -32,7 +32,8 @@
             <a href="{{route('pharmacist.dashboard')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-house"> Dashboard</i></a>
             <a href="{{route('pharmacist.patientmngt.patientindex')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-user"> Patient</i></a>
             <a href="{{route('pharmacist.medicinemngt.medindex')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-tablets"> Medicine</i></a>
-            <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-prescription"> Prescription</i></a>
+            <a href="{{route('pharmacist.prescriptions.index')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-prescription"> Prescription</i></a>
+            <a href="{{route('pharmacist.prescriptiondetail.prescribeindex')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-prescription"> Detailsprescrption</i></a>
             <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-warehouse"> Inventory</i></a>
             <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-brands fa-adversal"> sales Management</i></a>
             <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-newspaper"> Report</i></a>

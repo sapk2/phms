@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\medication;
 use App\Models\patient;
+use App\Models\prescription;
+use App\Models\prescription_details;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -140,7 +142,7 @@ class pharmaciancontroller extends Controller
             'photopath' => 'required'
         ]);
 
-        $photoname = time() . '.' . $request->photopath->extesion();
+        $photoname = time() . '.' . $request->photopath->extension();
         $request->photopath->move(public_path('/img'), $photoname);
         $data['photopath'] = $photoname;
         medication::create($data);
@@ -159,26 +161,95 @@ class pharmaciancontroller extends Controller
             'quantity' => 'required',
             'price' => 'required',
             'medicine_types' => 'required',
-            'photopath' => 'required'
+            'photopath' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-
+    
         $medicine = medication::find($id);
         $data['photopath'] = $medicine->photopath;
+    
         if ($request->hasFile('photopath')) {
             $photoname = time() . '.' . $request->photopath->extension();
             $request->photopath->move(public_path('/img'), $photoname);
-            //delete old photo
-            File::delete(public_path('/img' . $medicine->photopath));
+    
+            // Delete old photo if it exists
+            if ($medicine->photopath) {
+                File::delete(public_path('/img/' . $medicine->photopath));
+            }
+    
             $data['photopath'] = $photoname;
         }
-        $medicine->update($request->all());
-        return redirect(route('pharmacist.medicinemngt.medindex'))->with('updated sucessfully');
+    
+        $medicine->update($data);
+        return redirect(route('pharmacist.medicinemngt.medindex'))->with('message', 'Updated successfully');
     }
+    
     public function meddelete($id)
     {
         $medicine = medication::find($id);
-        File::delete(public_path('/img' . $medicine->photopath));
+        File::delete(public_path('/img'.$medicine->photopath));
+
         $medicine->delete();
         return redirect()->route('pharmacist.medicinemngt.medindex')->with('deleted sucessfully');
     }
+
+    //prescription_detail controller
+
+    public function prescribeindex(){
+        $prescriptiondetail=prescription_details::with(['prescription','medication'])->get();
+        return view('pharmacist.prescriptiondetail.prescribeindex',compact('prescriptiondetail'));
+    }
+
+    public function prescribecreate(){
+        $prescriptiondetail = prescription::all();
+        $medication = medication::all();
+        return view('pharmacist.prescriptiondetail.prescribecreate',compact('prescriptiondetail','medication'));
+   
+    }
+    public function prescribestore(Request $request){
+        $request->validate([
+            'prescription_id'=>'required',
+            'medication_id'=>'required',
+            'dosage'=>'required',
+            'quantity'=>'required',
+        ]);
+        prescription_details::create($request->all());
+        return redirect()->route('pharmacist.prescriptiondetail.prescribeindex')->with('sucess','prescription detail created sucessfully');
+
+    }
+    public function show($id)
+    {
+        
+        $prescriptiondetail = prescription_details::with(['prescription', 'medication'])->findOrFail($id);
+        return view('pharmacist.prescriptiondetail.show', compact('prescriptiondetail'));
+    }
+    
+    public function prescribeedit($id)
+    {
+        $prescriptiondetail = prescription_details::findOrFail($id);
+        $prescriptions = Prescription::all();  // Fetch the list of prescriptions
+        $medications = Medication::all(); // Fetch the list of medications
+        
+        return view('pharmacist.prescriptiondetail.prescribeedit', compact('prescriptiondetail', 'prescriptions', 'medications'));
+    }
+    public function prescribeupdate(Request $request, $id){
+        $request->validate([
+            'prescription_id' => 'required',
+            'medication_id' => 'required',
+            'dosage' => 'required',
+            'quantity' => 'required',
+        ]);
+        $prescriptiondetail = prescription_details::findOrFail($id);
+        $prescriptiondetail->update($request->all());
+        
+        // Correct the redirect to the index route after updating
+        return redirect()->route('pharmacist.prescriptiondetail.prescribeindex')->with('success', 'Prescription detail updated successfully');
+    }
+    
+    public function prescribedelete($id) {
+        $prescriptiondetail = prescription_details::findOrFail($id);  // Pass $id to findOrFail
+        $prescriptiondetail->delete(); 
+        return redirect()->route('pharmacist.prescriptiondetail.prescribeindex');
+    }
+    
 }
+

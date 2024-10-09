@@ -18,7 +18,10 @@
         </div>
         <div class="mb-4">
             <label for="quantity" class="block text-gray-700 font-blod mb-4">Quantity</label>
-            <input type="number" name="qunatity" id="quantity" class="w-full bg-white border @error('quantity') border-red-500 text-red-500 @else border-gray-300 text-gray-900 @enderror text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+            <input type="number" name="quantity" id="quantity" class="w-full bg-white border @error('quantity') border-red-500 text-red-500 @else border-gray-300 text-gray-900 @enderror text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+            @error('quantity')
+            <span class="text-red-500 text-sm">{{$message}}</span>
+            @enderror
         </div>
         <div class="mb-4">
             <label for="Price" class="block text-gray-700 font-blod mb-2">Price</label>
@@ -26,7 +29,7 @@
         </div>
         <div class="mb-4">
             <label for="medicine_type" class="block text-gray-700 font-blod mb-2">Medicine type</label>
-            <input type="text" name="medicine_type" id="medicine_type" class="w-full bg-white border @error('medicine_type') border-red-500 text-red-500 @else border-gray-300 text-gray-900 @enderror text-sm rounded-md focus:border-blue-500 block p-2.5 ">
+            <input type="text" name="medicine_types" id="medicine_type" class="w-full bg-white border @error('medicine_types') border-red-500 text-red-500 @else border-gray-300 text-gray-900 @enderror text-sm rounded-md focus:border-blue-500 block p-2.5 ">
 
         </div>
         <div class="mb-4">
