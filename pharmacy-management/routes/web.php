@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ispharmacist;
 
+use App\Http\Controllers\InventoryController;
+
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 Route::get('/',[Pagecontroller::class,'home'])->name('home');
@@ -58,10 +60,14 @@ Route::DELETE('/delete/{id}', [PrescriptionController::class, 'delete'])->name('
 
 
 
-
-
-
-
+Route::get('/', [InventoryController::class, 'index'])->name('pharmacist.inventory.index');
+Route::get('/create', [InventoryController::class, 'create'])->name('pharmacist.inventory.create');
+Route::post('/store', [InventoryController::class, 'store'])->name('pharmacist.inventory.store');
+Route::get('/edit/{id}', [InventoryController::class, 'edit'])->name('pharmacist.inventory.edit');
+Route::put('/update/{id}', [InventoryController::class, 'update'])->name('pharmacist.inventory.update');
+Route::delete('/delete/{id}', [InventoryController::class, 'delete'])->name('pharmacist.inventory.delete');
+Route::get('/low-stock', [InventoryController::class, 'lowStock'])->name('pharmacist.inventory.lowStock'); // New route for low stock items
+Route::get('/search', [InventoryController::class, 'search'])->name('pharmacist.inventory.search'); // New route for searching inventory
 
 
 
