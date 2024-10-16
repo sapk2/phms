@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inventory;
 use App\Models\medication;
 use App\Models\patient;
 use App\Models\prescription;
 use App\Models\prescription_details;
+use App\Models\report;
+use App\Models\Sale_mngt;
+use App\Models\site_setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -136,7 +140,7 @@ class pharmaciancontroller extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'quantity' => 'required',
+            'total_value' => 'required',
             'price' => 'required',
             'medicine_types' => 'required',
             'photopath' => 'required'
@@ -158,7 +162,7 @@ class pharmaciancontroller extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'quantity' => 'required',
+            'total_value' => 'required',
             'price' => 'required',
             'medicine_types' => 'required',
             'photopath' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -249,6 +253,30 @@ class pharmaciancontroller extends Controller
         $prescriptiondetail = prescription_details::findOrFail($id);  // Pass $id to findOrFail
         $prescriptiondetail->delete(); 
         return redirect()->route('pharmacist.prescriptiondetail.prescribeindex');
+    }
+
+    //// Display the settings edit form
+    public function siteedit(){
+        $settings=site_setting::first() ?? new site_setting();
+        return view('pharmacist.settings.siteedit',compact('settings'));
+
+    }
+    public function siteupdate(Request $request){
+        $request->validate([
+            'name' => 'string|max:255',
+            'tagline' => 'string|max:255',
+            'description' => 'string',
+            'keywords' => 'string|max:255',
+            'logo' => 'string|max:255',
+            'favicon' => 'string|max:255',
+            'admin_email' => 'required',
+        ]);
+        $settings = site_setting::first() ?? new site_setting();
+        $settings->fill($request->all());
+        $settings->save();
+        return redirect()->route('pharmacist.settings.siteedit')->with('success', 'Settings updated successfully.');
+    
+
     }
     
 }

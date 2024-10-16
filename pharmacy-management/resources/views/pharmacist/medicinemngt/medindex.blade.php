@@ -21,7 +21,7 @@
                     <th class="border border-gray-300 p-3 text-left">Name</th>
                     <th class="border border-gray-300 p-3 text-left">image</th>
                     <th class="border border-gray-300 p-3 text-left">Description</th>
-                    <th class="border border-gray-300 p-3 text-left">Quantity</th>
+                    <th class="border border-gray-300 p-3 text-left">total_value</th>
                     <th class="border border-gray-300 p-3 text-left">Price</th>
                     <th class="border border-gray-300 p-3 text-left">Medicine Type</th>
                     <th class="border border-gray-300 p-3 text-left">Action</th>
@@ -34,7 +34,7 @@
                     <td class="border border-gray-300 p-2">{{$medicine->name}}</td>
                     <td class="border border-gray-300 p-2">   <img src="{{ asset('/img/'.$medicine->photopath) }}" alt="" class="w-16 h-16 object-cover"> <!-- Displaying image --></td>
                     <td class="border border-gray-300 p-2">{{$medicine->description}}</td>
-                    <td class="border border-gray-300 p-2">{{$medicine->quantity}}</td>
+                    <td class="border border-gray-300 p-2">{{$medicine->total_value}}</td>
                     <td class="border border-gray-300 p-2">RS{{$medicine->price}}per pecies</td>
                     <td class="border border-gray-300 p-2">{{$medicine->medicine_types}}</td>
                     <td class="border border-gray-300 p-3">

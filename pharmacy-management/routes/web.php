@@ -7,12 +7,16 @@ use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ispharmacist;
-
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SalesController;
+use Illuminate\Routing\Route as RoutingRoute;
 
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
-Route::get('/',[Pagecontroller::class,'home'])->name('home');
+Route::get('/', [Pagecontroller::class, 'home'])->name('home');
+
 
 /**pharmacist panel**/
 Route::middleware([ispharmacist::class])->group(function(){
@@ -59,25 +63,41 @@ Route::post('/update/{id}', [PrescriptionController::class, 'update'])->name('ph
 Route::DELETE('/delete/{id}', [PrescriptionController::class, 'delete'])->name('pharmacist.prescriptions.delete'); // Delete a prescription
 
 
-
-Route::get('/', [InventoryController::class, 'index'])->name('pharmacist.inventory.index');
-Route::get('/create', [InventoryController::class, 'create'])->name('pharmacist.inventory.create');
-Route::post('/store', [InventoryController::class, 'store'])->name('pharmacist.inventory.store');
-Route::get('/edit/{id}', [InventoryController::class, 'edit'])->name('pharmacist.inventory.edit');
-Route::put('/update/{id}', [InventoryController::class, 'update'])->name('pharmacist.inventory.update');
-Route::delete('/delete/{id}', [InventoryController::class, 'delete'])->name('pharmacist.inventory.delete');
-Route::get('/low-stock', [InventoryController::class, 'lowStock'])->name('pharmacist.inventory.lowStock'); // New route for low stock items
-Route::get('/search', [InventoryController::class, 'search'])->name('pharmacist.inventory.search'); // New route for searching inventory
+//inventory
+Route::get('/inventory',[InventoryController::class,'index'])->name('pharmacist.inventory.index');
+Route::get('/inventory-create',[InventoryController::class,'create'])->name('pharmacist.inventory.create');
+Route::post('/inventory/store',[InventoryController::class,'store'])->name('pharmacist.inventory.store');
+Route::get('/inventory/{id}/edit',[InventoryController::class,'edit'])->name('pharmacist.inventory.edit');
+Route::post('/inventory/{id}/update', [InventoryController::class, 'update'])->name('pharmacist.inventory.update');
+Route::get('/inventory/{id}/delete',[InventoryController::class,'delete'])->name('pharmacist.inventory.delete');
 
 
+// Route for low stock items
+Route::get('/inventory/low-stock', [InventoryController::class, 'lowStock'])->name('pharmacist.inventory.low_stock');
+
+// Route for inventory search
+Route::get('/inventory/search', [InventoryController::class, 'search'])->name('pharmacist.inventory.search');
 
 
+Route::get('/sales', [SalesController::class,'index'])->name('pharmacist.sales.index'); // This handles all the CRUD operations for sales
+Route::get('/sales-create',[SalesController::class,'create'])->name('pharmacist.sales.create');
+Route::post('/sales/store',[SalesController::class,'store'])->name('pharmacist.sales.store');
+Route::get('/sales/{id}',[SalesController::class,'show'])->name('pharmacist.sales.show');
+Route::get('/sales/{id}/edit', [SalesController::class, 'edit'])->name('pharmacist.sales.edit');
+
+// Update an existing sale
+Route::put('/sales/{id}', [SalesController::class, 'update'])->name('pharmacist.sales.update');
+
+// Delete a sale
+Route::delete('/sales/{id}', [SalesController::class, 'destroy'])->name('pharmacist.sales.destroy');
 
 
+//site_setting
+// Route to display the edit settings form
+Route::get('/settings/edit', [pharmaciancontroller::class, 'siteedit'])->name('pharmacist.settings.siteedit');
 
-
-
-
+// Route to handle the form submission for updating settings
+Route::post('/settings/update', [pharmaciancontroller::class, 'siteupdate'])->name('pharmacist.settings.siteupdate');
 
 });
 

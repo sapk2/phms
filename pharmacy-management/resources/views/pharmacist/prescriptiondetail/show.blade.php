@@ -7,6 +7,7 @@
         <h2 class="font-bold px-12 py-1">PharmacyName:{{config('app.name')}}</h2>
         <h2 class="font-bold">Doctor Name:{{ $prescriptiondetail -> prescription->doctor_name}}</h2>
         <h2 class="font-bold">patient Name:{{ $prescriptiondetail -> prescription->patient_name}}</h2>
+        
     </div>
 </div>
 @endsection

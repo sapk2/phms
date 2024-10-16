@@ -21,9 +21,9 @@
             @enderror
         </div>
         <div class="mb-4">
-            <label for="quantity" class="block text-gray-700 font-bold mb-2">Quantity</label>
-            <input type="number" name="quantity" id="quantity" value="{{ $medicine->quantity }}" class="w-full bg-white border @error('quantity') border-red-500 text-red-500 @else border-gray-300 text-gray-900 @enderror text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-2.5">
-            @error('quantity')
+            <label for="total_value" class="block text-gray-700 font-bold mb-2">total_value</label>
+            <input type="number" name="total_value" id="total_value" value="{{ $medicine->total_value }}" class="w-full bg-white border @error('total_value') border-red-500 text-red-500 @else border-gray-300 text-gray-900 @enderror text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+            @error('total_value')
             <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>

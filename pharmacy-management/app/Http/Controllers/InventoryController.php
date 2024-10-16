@@ -19,39 +19,47 @@ class InventoryController extends Controller
     public function store(Request $request){
         $request->validate([
             'medication_id' => 'required',
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required'
         ]);
     
         Inventory::create($request->all());
-        return redirect()->route('pharmacist.inventory.create')->with('success', 'Inventory is created successfully!');
+        return redirect()->route('pharmacist.inventory.index')->with('success', 'Inventory is created successfully!');
     }
     
     public function edit($id){
         $inventory=Inventory::findorfail($id);
-        return view('pharmacist.inventory.index',compact('inventory'));
+        $medications = Medication::all();
+        return view('pharmacist.inventory.edit',compact('inventory','medications'));
     }
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         $request->validate([
-            'medication_id'=>'required',
-            'quantity'=>'required'
-         ]);
-         $inventory=Inventory::findorfail($id);
-         $inventory->update($request);
-         return redirect()->route('pharmacist.inventory.update',compact('inventory'))->with('sucess','sucessfully updated');
-
+            'medication_id' => 'required',
+            'quantity' => 'required'
+        ]);
+    
+        $inventory = Inventory::findOrFail($id);
+    
+        // Update with validated data
+        $inventory->update($request->only(['medication_id', 'quantity']));
+    
+        return redirect()->route('pharmacist.inventory.index')->with('success', 'Inventory updated successfully');
     }
+    
     public function delete($id){
         $inventory=Inventory::findorfail($id);
         $inventory->delete();
         return redirect()->route('pharmacist.inventory.index',compact('inventory'));
 
     }
-    // New method to check low stock items
+    //New method to check low stock items
     public function lowStock()
     {
-        $lowStockItems = Inventory::with('medication')
-            ->where('quantity', '<', 5) // Adjust the threshold as needed
-            ->get();
+        $lowStockItems = Inventory::select('medication_id', Inventory::raw('SUM(quantity) as total_quantity'))
+        ->groupBy('medication_id')
+        ->having('total_quantity', '<', 5) // Adjust the threshold as needed
+        ->with('medication')
+        ->get();
         return view('pharmacist.inventory.low_stock', compact('lowStockItems'));
     }
 

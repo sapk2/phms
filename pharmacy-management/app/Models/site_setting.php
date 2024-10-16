@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class medication extends Model
+class site_setting extends Model
 {
     use HasFactory;
-    protected $fillable=[
+    protected $fillable = [
         'name',
+        'tagline',
         'description',
-        'total_value',
-        'price',
-        'medicine_types',
-        'photopath'
+        'keywords',
+        'logo',
+        'favicon',
+        'admin_email',
     ];
 }

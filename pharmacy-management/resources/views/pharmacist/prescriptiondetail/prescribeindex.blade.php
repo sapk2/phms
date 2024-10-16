@@ -14,7 +14,7 @@
                     <th class="border px-4 py-2">Prescribed By</th>
                     <th class="border px-4 py-2">Medicine</th>
                     <th class="border px-4 py-2">Dosage</th>
-                    <th class="border px-4 py-2">Quantity</th>
+                    <th class="border px-4 py-2">Unit(tablet/syrup)</th>
                     <th class="border px-4 py-2">Created At</th>
                     <th class="border px-4 py-2">Actions</th>
                 </tr>
