@@ -1,16 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex items-center justify-center">
-    <div class="bg-white shadow-md rounded-lg p-6 w-96">
-        <h2 class="text-xl font-semibold mb-4">Edit Settings</h2>
-
-        @if(session('success'))
+<div class="container mt-2 w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-200 dark:border-gray-200">
+<h2 class="text-xl font-semibold mb-4">Edit Settings</h2>
+<hr class="border border-red-200">
+@if(session('success'))
             <div class="mb-4 text-green-600">
                 {{ session('success') }}
             </div>
         @endif
-
         <form action="{{ route('pharmacist.settings.siteupdate') }}" method="POST">
             @csrf
 
@@ -45,14 +43,15 @@
             </div>
 
             <div class="mb-4">
-                <label for="admin_email" class="block text-sm font-medium text-gray-700">Admin Email</label>
-                <input type="email" name="admin_email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" value="{{ old('admin_email', $settings->admin_email) }}" required />
+                <label for="admin_email" class=" text-sm font-medium text-gray-700">Admin Email</label>
+                <input type="email" name="admin_email" class="mt-1 block w-50 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" value="{{ old('admin_email', $settings->admin_email) }}" required />
             </div>
 
-            <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button type="submit" class="w-62 bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
                 Save Changes
             </button>
         </form>
     </div>
+
 </div>
 @endsection

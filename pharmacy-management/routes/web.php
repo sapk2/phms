@@ -99,6 +99,7 @@ Route::get('/settings/edit', [pharmaciancontroller::class, 'siteedit'])->name('p
 // Route to handle the form submission for updating settings
 Route::post('/settings/update', [pharmaciancontroller::class, 'siteupdate'])->name('pharmacist.settings.siteupdate');
 
+
 });
 
 require __DIR__.'/auth.php';

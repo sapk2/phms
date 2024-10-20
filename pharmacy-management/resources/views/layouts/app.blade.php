@@ -43,7 +43,7 @@
                <div id="dropdownMenu" class="absolute hidden bg-white border border-gray-300 mt-1 ml-1 rounded-md shadow-lg">
                   <a href="{{route('pharmacist.user.userindex')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-users-gear"> Manageuser</i></a>
                   <a href="{{route('pharmacist.settings.siteedit')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-house-medical"> General setting</i></a>
-                  <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-address-card"> Profile</i></a>
+                  <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-address-card"> Profile</i></a>
                </div>
             </div>
             <script>
@@ -68,7 +68,7 @@
                   dropdownMenu.classList.add('hidden');
                });
             </script>
-            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-bell"> Notification</i></a>
+           
             <form action="{{route('logout')}}" method="POST" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1">
                @csrf
                <button type="submit" class="w-full text-left"><i class="fa-solid fa-right-from-bracket"> Logout</i></button>
