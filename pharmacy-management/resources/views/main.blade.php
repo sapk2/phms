@@ -17,7 +17,7 @@
                 <div class="flex">
                     <img src="{{asset('img/logo.png')}}" class="w-11 h-11" alt="" srcset="">
                     <a href="#" class="flex-shrink-0 flex items-center text-2xl font-bold text-blue-600">
-                        Pharmacy
+                       {{$settings->name}}
                     </a>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">

@@ -263,21 +263,31 @@ class pharmaciancontroller extends Controller
     }
     public function siteupdate(Request $request){
         $request->validate([
-            'name' => 'string|max:255',
-            'tagline' => 'string|max:255',
-            'description' => 'string',
-            'keywords' => 'string|max:255',
-            'logo' => 'string|max:255',
-            'favicon' => 'string|max:255',
-            'admin_email' => 'required',
+            'name' => 'required',
+            'tagline' => 'required',
+            'description' => 'required',
+            'keywords' => 'required',
+            'logo' => 'required', // Validate logo as an image
+            'favicon' => 'required',
+            'admin_email' => 'required', // Ensure the email is valid
         ]);
-        $settings = site_setting::first() ?? new site_setting();
-        $settings->fill($request->all());
-        $settings->save();
-        return redirect()->route('pharmacist.settings.siteedit')->with('success', 'Settings updated successfully.');
     
-
+        $settings = site_setting::first() ?? new site_setting();
+        
+        // Handle logo upload
+        if ($request->hasFile('logo')) {
+            // Store the logo in the 'img' directory and get the path
+            $path = $request->file('logo')->store('img', 'public'); // Store in the 'img' directory
+            $settings->logo = $path; // Set the path in the settings
+        }
+    
+        // Fill other settings, excluding the logo
+        $settings->fill($request->except('logo')); // Exclude logo to avoid overwriting
+        $settings->save();
+    
+        return redirect()->route('pharmacist.settings.siteedit')->with('success', 'Settings updated successfully.');
     }
+    
     
 }
 

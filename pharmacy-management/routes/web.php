@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\cartController;
 use App\Http\Controllers\dashboardcontroller;
 use App\Http\Controllers\Pagecontroller;
 use App\Http\Controllers\pharmaciancontroller;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ispharmacist;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalesController;
 use Illuminate\Routing\Route as RoutingRoute;
@@ -16,7 +18,7 @@ use Illuminate\Routing\Route as RoutingRoute;
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 Route::get('/', [Pagecontroller::class, 'home'])->name('home');
-
+Route::get('/', [Pagecontroller::class, 'index'])->name('index');
 
 /**pharmacist panel**/
 Route::middleware([ispharmacist::class])->group(function(){
@@ -100,6 +102,22 @@ Route::get('/settings/edit', [pharmaciancontroller::class, 'siteedit'])->name('p
 Route::post('/settings/update', [pharmaciancontroller::class, 'siteupdate'])->name('pharmacist.settings.siteupdate');
 
 
+
+//carts
+Route::post('cart/store',[cartController::class,'store'])->name('pharmacist.cart.store');
+Route::get('mycart',[CartController::class,'mycart'])->name('pharmacist.mycart');
+Route::get('cart/{id}/destroy',[CartController::class,'destroy'])->name('pharmacist.cart.destroy');
+// Show checkout page
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+
+// Confirm and place the order
+Route::post('/order/confirm', [OrderController::class, 'confirmOrder'])->name('order.confirm');
+
+// Show all orders
+Route::get('/orders', [OrderController::class, 'index'])->name('pharmacist.orders.index');
+
+// Update order status
+Route::post('/orders/{id}/status/{status}', [OrderController::class, 'status'])->name('orders.status');
 });
 
 require __DIR__.'/auth.php';

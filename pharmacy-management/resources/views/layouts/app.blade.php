@@ -35,8 +35,9 @@
             <a href="{{route('pharmacist.prescriptions.index')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-prescription"> Prescription</i></a>
             <a href="{{route('pharmacist.prescriptiondetail.prescribeindex')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-newspaper"> Detailsprescrption</i></a>
             <a href="{{route('pharmacist.inventory.index')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-warehouse"> Inventory</i></a>
+            <a href="{{route('pharmacist.mycart')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-cart-shopping">cart mngt</i></a>
+            <a href="{{route('pharmacist.orders.index')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-cart-flatbed-suitcase">Order</i></a>
             <a href="{{route('pharmacist.sales.index')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-brands fa-adversal"> sales Management</i></a>
-            <a href="#" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-newspaper"> Report</i></a>
             <div class="relative">
                <a href="#" id="settingBtn" class="px-4 py-2 hover:bg-gray-300 block border-b  border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-wrench"> Setting</i></a>
                <!--Dropdown Menu--->
