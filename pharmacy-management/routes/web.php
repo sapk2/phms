@@ -19,6 +19,7 @@ Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 // Route::get('/', [Pagecontroller::class, 'home'])->name('home');
 Route::get('/', [Pagecontroller::class, 'index'])->name('index');
+Route::get('/products', [PageController::class, 'product'])->name('products');
 
 /**pharmacist panel**/
 Route::middleware([ispharmacist::class])->group(function(){

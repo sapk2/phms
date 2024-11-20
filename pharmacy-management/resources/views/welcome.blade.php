@@ -12,34 +12,23 @@
     </div>
 </section>
 
-<!-- Featured Products Section -->
-<!-- Featured Products Section -->
+
+<!-- Featured Medicines Section -->
 <section class="py-12 bg-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">Featured Products</h2>
+        <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">Our Medicines</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            @foreach($featuredProducts as $product)
+            @foreach($medicines as $medicine)
             <div class="bg-white shadow rounded-lg overflow-hidden">
-                <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-40 object-cover">
+                <!-- Display the image -->
+                <img src="{{ asset('/img/' . $medicine->photopath) }}" alt="{{ $medicine->name }}" class="w-51 h-51 object-cover">
                 <div class="p-4">
-                    <h3 class="text-lg font-bold text-gray-900">{{ $product->name }}</h3>
-                    <p class="text-gray-600 mt-2 text-sm">{{ $product->description }}</p>
-                    <div class="flex justify-between items-center mt-4">
-                        <span class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
-                        <a href="#" class="text-white bg-blue-600 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                            View
-                        </a>
-                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">{{ $medicine->name }}</h3>
+                    <p class="text-gray-600 mt-2 text-sm">{{ $medicine->description }}</p>
                 </div>
             </div>
             @endforeach
-        </div>
-
-        <div class="text-center mt-8">
-            <a href="#" class="text-blue-600 hover:underline font-medium">
-                View All Products
-            </a>
         </div>
     </div>
 </section>

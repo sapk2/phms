@@ -7,6 +7,7 @@ use App\Models\medication;
 use App\Models\site_setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class Pagecontroller extends Controller
 {
@@ -17,10 +18,11 @@ class Pagecontroller extends Controller
     // }
     public function index()
     {
-        $medicine=medication::orderBy('photopath','asc')->first();
-        $settings =site_setting ::first(); // Fetch the settings
-        $featuredProducts = medication::where('photopath', true)->limit(8)->get(); // Example query
-        return view('welcome', compact('settings','medicine','featuredProducts'));
+        $medicines = medication::limit(4)->get();
+        $settings =site_setting ::first();
+        // Fetch the settings
+        //$featuredProducts = medication::where('photopath', true)->limit(8)->get(); // Example query
+        return view('welcome', compact('settings','medicines'));
     }
     public function aboutus(){
         return view('about');
@@ -28,6 +30,14 @@ class Pagecontroller extends Controller
     public function contact() {
         return view('contact');
     }
+    public function product()
+{
+    $medicines = medication::all(); // Fetch all medicines
+    $settings = site_setting::first(); // Fetch the settings
+
+    return view('product', compact('settings', 'medicines'));
+}
+
 
     /*public function checkout(){
         $patientid=Auth::id();

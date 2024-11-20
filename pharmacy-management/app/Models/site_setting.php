@@ -17,4 +17,6 @@ class site_setting extends Model
         'favicon',
         'admin_email',
     ];
+   
 }
+
