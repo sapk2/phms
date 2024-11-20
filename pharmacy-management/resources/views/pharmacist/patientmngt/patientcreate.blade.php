@@ -6,8 +6,8 @@
         @csrf
         <!--Namefield-->
         <div class="mb-5">
-            <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Name</label>
-            <input type="text" name="name" id="name" class="bg-white border @error('name') border-red-500 text-red-500 @else border-gray-300 text-gray-300 @enderror text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="hero">
+            <label for="name" class="block mb-2 text-sm font-medium text-black-700">Name</label>
+            <input type="text" name="name" id="name" class="bg-white border @error('name') border-red-500 text-red-500 @else border-gray-300 text-gray-900 @enderror text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="hero">
             @error('name')
             <p class="mt-2 text-sm text-red-600"><span class="font-medium">Oops!</span> {{ $message }}</p>
             @enderror

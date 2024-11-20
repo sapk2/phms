@@ -17,7 +17,7 @@ use Illuminate\Routing\Route as RoutingRoute;
 
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
-Route::get('/', [Pagecontroller::class, 'home'])->name('home');
+// Route::get('/', [Pagecontroller::class, 'home'])->name('home');
 Route::get('/', [Pagecontroller::class, 'index'])->name('index');
 
 /**pharmacist panel**/

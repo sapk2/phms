@@ -222,9 +222,9 @@ class pharmaciancontroller extends Controller
     }
     public function show($id)
     {
-        
+        $settings = site_setting::all();
         $prescriptiondetail = prescription_details::with(['prescription', 'medication'])->findOrFail($id);
-        return view('pharmacist.prescriptiondetail.show', compact('prescriptiondetail'));
+        return view('pharmacist.prescriptiondetail.show', compact('prescriptiondetail','settings'));
     }
     
     public function prescribeedit($id)
