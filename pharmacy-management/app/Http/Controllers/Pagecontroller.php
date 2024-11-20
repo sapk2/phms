@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\aboutus;
 use App\Models\cart;
 use App\Models\medication;
 use App\Models\site_setting;
@@ -25,7 +26,8 @@ class Pagecontroller extends Controller
         return view('welcome', compact('settings','medicines'));
     }
     public function aboutus(){
-        return view('about');
+        $about = aboutus::first();
+    return view('about', compact('about'));
     }
     public function contact() {
         return view('contact');

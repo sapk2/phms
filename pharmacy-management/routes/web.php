@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\dashboardcontroller;
@@ -102,6 +104,12 @@ Route::get('/settings/edit', [pharmaciancontroller::class, 'siteedit'])->name('p
 // Route to handle the form submission for updating settings
 Route::post('/settings/update', [pharmaciancontroller::class, 'siteupdate'])->name('pharmacist.settings.siteupdate');
 
+
+
+//about
+Route::get('/admin/about', [AboutUsController::class, 'index'])->name('pharmacist.about.index');
+    Route::put('/admin/about', [AboutUsController::class, 'update'])->name('pharmacist.about.update');
+   
 
 
 //carts
