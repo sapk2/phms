@@ -25,10 +25,13 @@ class Pagecontroller extends Controller
         //$featuredProducts = medication::where('photopath', true)->limit(8)->get(); // Example query
         return view('welcome', compact('settings','medicines'));
     }
-    public function aboutus(){
-        $about = aboutus::first();
-    return view('about', compact('about'));
-    }
+    public function aboutus()
+{
+    $about = AboutUs::first(); // Assuming there is only one AboutUs entry
+    $settings = Site_Setting::first();
+    return view('about', compact('settings', 'about')); // Fix compact
+}
+
     public function contact() {
         return view('contact');
     }

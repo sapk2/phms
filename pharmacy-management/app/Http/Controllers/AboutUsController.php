@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AboutUsController extends Controller
 {
     public function index(){
-        $about =aboutus::first();
+        $about =aboutus::all();
         return view('pharmacist.about.index', compact('about'));
     }
     public function update(Request $request)
