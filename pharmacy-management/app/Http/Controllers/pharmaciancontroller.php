@@ -123,11 +123,12 @@ class pharmaciancontroller extends Controller
         $search=$request->input('search');
         $query=medication::query();
         if ($search) {
-           $query->where('name','LIKE','%'.$search.'%')->orWhere('description','LIKE','%'.$search.'%')->pagination(10);
+           $query->where('name','LIKE','%'.$search.'%')->orWhere('description','LIKE','%'.$search.'%')->paginate(10);
         } 
 
 
-        $medicine = medication::all();
+        $medicine = medication::paginate(5);
+
         return view('pharmacist.medicinemngt.medindex', compact('medicine','search','query'));
     }
     public function medcreate()

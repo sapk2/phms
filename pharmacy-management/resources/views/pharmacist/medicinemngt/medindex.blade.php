@@ -28,25 +28,25 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($medicine as $medicine)
+                @foreach($medicine as $item)
                 <tr>
-                    <td class="border border-gray-300 p-2">{{$medicine->id}}</td>
-                    <td class="border border-gray-300 p-2">{{$medicine->name}}</td>
-                    <td class="border border-gray-300 p-2">   <img src="{{ asset('/storage/medicine/' . $medicine->photopath) }}" alt="" class="w-16 h-16 object-cover"> <!-- Displaying image --></td>
-                    <td class="border border-gray-300 p-2">{{$medicine->description}}</td>
-                    <td class="border border-gray-300 p-2">{{$medicine->total_value}}</td>
-                    <td class="border border-gray-300 p-2">RS{{$medicine->price}}per pecies</td>
-                    <td class="border border-gray-300 p-2">{{$medicine->medicine_types}}</td>
+                    <td class="border border-gray-300 p-2">{{$item->id}}</td>
+                    <td class="border border-gray-300 p-2">{{$item->name}}</td>
+                    <td class="border border-gray-300 p-2"> <img src="{{ asset('/storage/medicine/' . $item->photopath) }}" alt="" class="w-16 h-16 object-cover"> <!-- Displaying image --></td>
+                    <td class="border border-gray-300 p-2">{{$item->description}}</td>
+                    <td class="border border-gray-300 p-2">{{$item->total_value}}</td>
+                    <td class="border border-gray-300 p-2">RS{{$item->price}}per pecies</td>
+                    <td class="border border-gray-300 p-2">{{$item->medicine_types}}</td>
                     <td class="border border-gray-300 p-3">
-                        <a href="{{route('pharmacist.medicinemngt.mededit',$medicine->id)}}" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</a>
-                        <a href="{{route('pharmacist.medicinemngt.meddelete',$medicine->id)}}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onclick="return confirm('Are you sure to Delete?')">Delete</a>
+                        <a href="{{route('pharmacist.medicinemngt.mededit',$item->id)}}" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</a>
+                        <a href="{{route('pharmacist.medicinemngt.meddelete',$item->id)}}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onclick="return confirm('Are you sure to Delete?')">Delete</a>
                     </td>
 
                 </tr>
                 @endforeach
             </tbody>
-
         </table>
+        {{$medicine->links()}}
     </div>
 </div>
 @endsection

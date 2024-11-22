@@ -23,7 +23,7 @@
 
 <body class="font-sans antialiased">
    <div class="flex">
-      <div class="w-60 bg-blue-200 shadow-lg h-screen">
+      <div class="w-60 bg-blue-200 shadow-lg h-100">
          <div class="container">
             <img src="{{asset('storage/'.$settings->logo)}}" class=" w-16 h-16 mx-auto my-5" alt="" srcset="">
          </div>
