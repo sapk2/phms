@@ -32,7 +32,7 @@
                 <tr>
                     <td class="border border-gray-300 p-2">{{$medicine->id}}</td>
                     <td class="border border-gray-300 p-2">{{$medicine->name}}</td>
-                    <td class="border border-gray-300 p-2">   <img src="{{ asset('storage/medicine/'.$medicine->photopath) }}" alt="" class="w-16 h-16 object-cover"> <!-- Displaying image --></td>
+                    <td class="border border-gray-300 p-2">   <img src="{{ asset('/storage/medicine/' . $medicine->photopath) }}" alt="" class="w-16 h-16 object-cover"> <!-- Displaying image --></td>
                     <td class="border border-gray-300 p-2">{{$medicine->description}}</td>
                     <td class="border border-gray-300 p-2">{{$medicine->total_value}}</td>
                     <td class="border border-gray-300 p-2">RS{{$medicine->price}}per pecies</td>

@@ -21,16 +21,18 @@ class Pagecontroller extends Controller
     {
         $medicines = medication::limit(4)->get();
         $settings =site_setting ::first();
+        $about = AboutUs::first(); // Fetch the first AboutUs record
         // Fetch the settings
         //$featuredProducts = medication::where('photopath', true)->limit(8)->get(); // Example query
-        return view('welcome', compact('settings','medicines'));
+        return view('welcome', compact('settings','medicines','about'));
     }
     public function aboutus()
-{
-    $about = AboutUs::first(); // Assuming there is only one AboutUs entry
-    $settings = Site_Setting::first();
-    return view('about', compact('settings', 'about')); // Fix compact
-}
+    {
+        $about = AboutUs::first(); // Fetch the first AboutUs record
+        $settings = Site_Setting::first(); // Fetch site settings if needed
+        return view('about', compact('about', 'settings')); // Pass data to the view
+    }
+    
 
     public function contact() {
         return view('contact');

@@ -9,7 +9,7 @@
                     <!-- Medicine Image -->
                     <img 
                         class="p-8 rounded-t-lg" 
-                        src="{{ asset('img/' . $medicine->photopath) }}" 
+                        src="{{ asset('/storage/medicine/' . $medicine->photopath) }}" 
                         alt="{{ $medicine->name }}" 
                     />
                 </a>

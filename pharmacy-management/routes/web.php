@@ -22,7 +22,8 @@ Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallbac
 // Route::get('/', [Pagecontroller::class, 'home'])->name('home');
 Route::get('/', [Pagecontroller::class, 'index'])->name('index');
 Route::get('/products', [PageController::class, 'product'])->name('products');
-Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/about-us', [PageController::class, 'aboutus'])->name('aboutus');
+
 /**pharmacist panel**/
 Route::middleware([ispharmacist::class])->group(function(){
     Route::get('/pharmacist/dashboard',[dashboardcontroller::class,'dashboard'])->name('pharmacist.dashboard');

@@ -147,7 +147,7 @@ class pharmaciancontroller extends Controller
         ]);
 
         $photoname = time() . '.' . $request->photopath->extension();
-        $request->photopath->move(public_path('/img'), $photoname);
+        $request->photopath->move(public_path('/storage/medicine'), $photoname);
         $data['photopath'] = $photoname;
         medication::create($data);
         return redirect(route('pharmacist.medicinemngt.medindex'));

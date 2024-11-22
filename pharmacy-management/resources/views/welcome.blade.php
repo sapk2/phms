@@ -22,7 +22,7 @@
             @foreach($medicines as $medicine)
             <div class="bg-white shadow rounded-lg overflow-hidden">
                 <!-- Display the image -->
-                <img src="{{ asset('/img/' . $medicine->photopath) }}" alt="{{ $medicine->name }}" class="w-51 h-51 object-cover">
+                <img src="{{ asset('/storage/medicine/' . $medicine->photopath) }}" alt="{{ $medicine->name }}" class="w-51 h-51 object-cover">
                 <div class="p-4">
                     <h3 class="text-lg font-bold text-gray-900">{{ $medicine->name }}</h3>
                     <p class="text-gray-600 mt-2 text-sm">{{ $medicine->description }}</p>
@@ -36,29 +36,33 @@
 
 
 <!-- About Us Section -->
-<section class="bg-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            @if($about)
-                <h2 class="text-3xl font-bold text-gray-900">{{ $about->title }}</h2>
-                <p class="mt-4 text-lg text-gray-600">{{ $about->subtitle }}</p>
-            @endif
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-                @if($about && $about->image_path)
-                    <img src="{{ asset('storage/' . $about->image_path) }}" alt="Pharmacy" class="w-full h-64 object-cover rounded-lg shadow-lg">
+<section id="about" class="my-8">
+    <div class="sm:flex items-center max-w-screen-xl mx-auto">
+        <div class="sm:w-1/2 p-10">
+            <div class="image object-center text-center">
+                @if ($about && $about->image_path)
+                    <img src="{{ asset('storage/' . $about->image_path) }}" alt="About Us Image" class="rounded shadow">
+                @else
+                    <img src="https://i.imgur.com/WbQnbas.png" alt="Default Image">
                 @endif
             </div>
-            <div class="flex flex-col justify-center">
-                @if($about)
-                    <p class="text-gray-700">{{ $about->content }}</p>
-                @endif
+        </div>
+        <div class="sm:w-1/2 p-5">
+            <div class="text">
+                <span class="text-gray-500 border-b-2 border-indigo-600 uppercase">About Us</span>
+                <h2 class="my-4 font-bold text-3xl sm:text-4xl">
+                    {{ $about->title ?? 'About Our Company' }}
+                </h2>
+                <h3 class="text-indigo-600 text-xl my-2">
+                    {{ $about->subtitle ?? 'Your Trusted Pharmacy Partner' }}
+                </h3>
+                <p class="text-gray-700">
+                    {{ $about->content ?? 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, commodi doloremque, fugiat illum magni minus nisi nulla numquam obcaecati placeat quia, repellat tempore voluptatum.' }}
+                </p>
             </div>
         </div>
     </div>
 </section>
-
 <!-- Team Section -->
 <section class="bg-gray-50 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
