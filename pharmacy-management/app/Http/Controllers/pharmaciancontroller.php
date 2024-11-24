@@ -71,7 +71,7 @@ class pharmaciancontroller extends Controller
         $patients = Patient::where('name', 'like', '%' . $search . '%')
             ->orWhere('email', 'like', '%' . $search . '%')
             ->orWhere('phone', 'like', '%' . $search . '%')
-            ->paginate(10);
+            ->paginate(5);
 
         // Return the view with the patients and the search term
         return view('pharmacist.patientmngt.patientindex', compact('patients', 'search'));
@@ -119,18 +119,23 @@ class pharmaciancontroller extends Controller
 
     //medication controller
     public function medindex(Request $request)
-    {
-        $search=$request->input('search');
-        $query=medication::query();
-        if ($search) {
-           $query->where('name','LIKE','%'.$search.'%')->orWhere('description','LIKE','%'.$search.'%')->paginate(10);
-        } 
+{
+    $search = $request->input('search');
+    $query = Medication::query(); // Initialize query builder
 
-
-        $medicine = medication::paginate(5);
-
-        return view('pharmacist.medicinemngt.medindex', compact('medicine','search','query'));
+    if ($search) {
+        // Apply search conditions
+        $query->where('name', 'LIKE', '%' . $search . '%')
+              ->orWhere('description', 'LIKE', '%' . $search . '%');
     }
+
+    // Paginate the results, applying search filters if any
+    $medicine = $query->paginate(5);
+
+    // Pass medicines and search term to the view
+    return view('pharmacist.medicinemngt.medindex', compact('medicine', 'search'));
+}
+
     public function medcreate()
     {
         return view('pharmacist.medicinemngt.medcreate');
@@ -199,10 +204,22 @@ class pharmaciancontroller extends Controller
 
     //prescription_detail controller
 
-    public function prescribeindex(){
-        $prescriptiondetail=prescription_details::with(['prescription','medication'])->get();
-        return view('pharmacist.prescriptiondetail.prescribeindex',compact('prescriptiondetail'));
+    public function prescribeindex(Request $request)
+    {
+        $search = $request->input('search');
+        $query = prescription_details::with(['prescription', 'medication']);
+        if ($search) {
+            $query->whereHas('prescription', function ($q) use ($search) {
+                $q->where('doctor_name', 'LIKE', '%' . $search . '%');
+            })
+            ->orWhereHas('medication', function ($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%');
+            });
+        }
+        $prescriptiondetail = $query->paginate(5);
+        return view('pharmacist.prescriptiondetail.prescribeindex', compact('prescriptiondetail', 'search'));
     }
+    
 
     public function prescribecreate(){
         $prescriptiondetail = prescription::all();
@@ -223,7 +240,7 @@ class pharmaciancontroller extends Controller
     }
     public function show($id)
     {
-        $settings = site_setting::all();
+        $settings = site_setting::first();
         $prescriptiondetail = prescription_details::with(['prescription', 'medication'])->findOrFail($id);
         return view('pharmacist.prescriptiondetail.show', compact('prescriptiondetail','settings'));
     }

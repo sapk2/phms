@@ -11,11 +11,27 @@ use Illuminate\Http\Request;
 class SalesController extends Controller
 {
     // Display all sales
-    public function index()
+    public function index(Request $request)
     {
-        $sales = Sale_mngt::with('medication')->get(); // Retrieve all sales with medication details
-        return view('pharmacist.sales.index', compact('sales'));
+        $search = $request->input('search');
+    
+        // Query sales with related medication
+        $query = Sale_mngt::with('medication');
+    
+        // Apply search filter
+        if ($search) {
+            $query->whereHas('medication', function ($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%');
+            });
+        }
+    
+        // Paginate results
+        $sales = $query->paginate(5);
+    
+        // Return view with data
+        return view('pharmacist.sales.index', compact('sales', 'search'));
     }
+    
 
     // Create a new sale (form)
     public function create()

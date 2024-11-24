@@ -10,11 +10,29 @@ use Illuminate\Http\Request;
 class PrescriptionController extends Controller
 {
     // Display a list of prescriptions
-    public function index()
-    {
-        $prescriptions = Prescription::with(['patient', 'user'])->get();
-        return view('pharmacist.prescriptions.index', compact('prescriptions'));
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+
+    // Initialize query with relationships
+    $query = Prescription::with(['patient', 'user']);
+
+    if ($search) {
+        $query->whereHas('patient', function ($q) use ($search) {
+            $q->where('name', 'LIKE', '%' . $search . '%');
+        })
+        ->orWhereHas('user', function ($q) use ($search) {
+            $q->where('name', 'LIKE', '%' . $search . '%');
+        })
+        ->orWhere('doctor_name', 'LIKE', '%' . $search . '%');
     }
+
+    
+    $prescriptions = $query->paginate(5);
+
+    return view('pharmacist.prescriptions.index', compact('prescriptions', 'search'));
+}
+
 
     // Show the form for creating a new prescription
     public function create()

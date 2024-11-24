@@ -8,10 +8,19 @@ use App\Models\Medication;
 
 class InventoryController extends Controller
 {
-    public function  index(){
-        $inventory= Inventory::with('medication')->get();
-        return view('pharmacist.inventory.index',compact('inventory'));
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+        $query = Inventory::with('medication');
+        if ($search) {
+            $query->whereHas('medication', function ($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%');
+            });
+        }
+        $inventory = $query->paginate(5);
+        return view('pharmacist.inventory.index', compact('inventory', 'search'));
     }
+    
     public function create(){
         $medication=Medication::all();
         return view('pharmacist.inventory.create',compact('medication'));

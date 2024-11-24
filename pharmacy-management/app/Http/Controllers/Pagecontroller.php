@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\aboutus;
 use App\Models\cart;
+use App\Models\footer;
 use App\Models\medication;
 use App\Models\site_setting;
 use Illuminate\Http\Request;
@@ -21,10 +22,11 @@ class Pagecontroller extends Controller
     {
         $medicines = medication::limit(4)->get();
         $settings =site_setting ::first();
-        $about = AboutUs::first(); // Fetch the first AboutUs record
+        $about = AboutUs::first(); 
+        $footer = footer::first();// Fetch the first AboutUs record
         // Fetch the settings
         //$featuredProducts = medication::where('photopath', true)->limit(8)->get(); // Example query
-        return view('welcome', compact('settings','medicines','about'));
+        return view('welcome', compact('settings','medicines','about','footer'));
     }
     public function aboutus()
     {
@@ -44,7 +46,11 @@ class Pagecontroller extends Controller
 
     return view('product', compact('settings', 'medicines'));
 }
-
+public function footer(){
+    $footer=footer::all();
+    $settings=site_setting::first();
+    return view('footer',compact('setting','footer'));
+}
 
     /*public function checkout(){
         $patientid=Auth::id();

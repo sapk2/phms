@@ -14,7 +14,18 @@
     @endif
 
     <div class="bg-white shadow-md rounded overflow-hidden">
-        <table class="min-w-full table-auto">
+    <div class="flex justify-between items-center mb-4">
+    <form action="{{ route('pharmacist.sales.index') }}" method="GET" class="flex items-center">
+        <input type="text" name="search" placeholder="Search by medication name..." 
+               class="border px-4 py-2 rounded-lg focus:ring focus:ring-blue-300" 
+               value="{{ request('search') }}">
+        <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Search
+        </button>
+    </form>
+  
+</div>
+    <table class="min-w-full table-auto">
             <thead>
                 <tr class="bg-gray-100 text-left">
                     <th class="px-4 py-2">SN</th>
@@ -28,7 +39,7 @@
             <tbody>
                 @foreach ($sales as $sale)
                     <tr class="border-b">
-                        <td class="px-4 py-2">{{ $sale->id }}</td>
+                        <td class="px-4 py-2">{{$loop->index + 1 }}</td>
                         <td class="px-4 py-2">{{ $sale->medication->name }}</td>
                         <td class="px-4 py-2">{{ $sale->quantity }}</td>
                         <td class="px-4 py-2">RS.{{ number_format($sale->total_price, 2) }}</td>
@@ -46,6 +57,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="mt-4">
+    {{ $sales->appends(['search' => request('search')])->links() }}
+</div>
     </div>
 </div>
 @endsection

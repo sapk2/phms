@@ -3,9 +3,23 @@
 <h1 class="mt-5 text-3xl font-bold py-2 px-4">Prescription Manangement</h1>
 <hr class="bg-gray-700">
 <div class="container mt-2 px-4 py-8">
+
     <div class="flex justify-end mb-4">
         <a href="{{route('pharmacist.prescriptions.create')}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md ">Add prescription</a>
     </div>
+    <div class="container mt-6 ">
+    <div class="mb-4">
+    <form action="{{ route('pharmacist.prescriptions.index') }}" method="GET">
+        <div class="flex items-center">
+            <input type="text" name="search" placeholder="Search prescriptions..." 
+                   class="border px-4 py-2 rounded-lg focus:ring focus:ring-blue-300 w-1/3" 
+                   value="{{ request('search') }}">
+            <button type="submit" class="ml-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                Search
+            </button>
+        </div>
+    </form>
+</div>
      <div class="mt-8">
         <table class="table-auto w-full text-left border-collapase">
             <thead>
@@ -20,7 +34,7 @@
             <tbody>
                 @foreach (  $prescriptions as $prescription)
                 <tr class="bg-gray-100 hover:bg-gray-300">
-                    <td class="border px-4 py-2">{{$prescription->id}}</td>
+                    <td class="border px-4 py-2">{{$loop->index + 1 }}</td>
                     <td class="border px-4 py-2">{{$prescription->patient->name}}</td>
                     <td class="border px-4 py-2">{{$prescription->user->name}}</td>
                     <td class="border px-4 py-2">{{$prescription->doctor_name}}</td>
@@ -43,6 +57,11 @@
                 @endforeach
             </tbody>
         </table>
+          <!-- Pagination Links -->
+    <div class="mt-4">
+        {{ $prescriptions->appends(['search' => request('search')])->links() }}
+    </div>
+     </div>
      </div>
 </div>
 @endsection

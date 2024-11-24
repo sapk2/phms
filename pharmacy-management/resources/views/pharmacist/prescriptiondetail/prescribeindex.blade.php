@@ -7,6 +7,20 @@
         <a href="{{ route('pharmacist.prescriptiondetail.prescribecreate') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">Add details</a>
     </div>
     <div class="mt-8">
+        
+    <div class="mb-4">
+    <form action="{{ route('pharmacist.prescriptiondetail.prescribeindex') }}" method="GET">
+        <div class="flex items-center">
+            <input type="text" name="search" placeholder="Search prescriptions..." 
+                   class="border px-4 py-2 rounded-lg focus:ring focus:ring-blue-300 w-1/3" 
+                   value="{{ request('search') }}">
+            <button type="submit" class="ml-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                Search
+            </button>
+        </div>
+    </form>
+</div>
+
         <table class="table-auto w-full text-left border-collapse">
             <thead>
                 <tr class="bg-gray-200">
@@ -22,7 +36,7 @@
             <tbody>
                 @foreach($prescriptiondetail as $prescription_detail)
                 <tr> <!-- Add this tag to group each row's data -->
-                    <td class="border px-4 py-2">{{ $prescription_detail->id }}</td>
+                    <td class="border px-4 py-2">{{$loop->index + 1 }}</td>
                     <td class="border px-4 py-2">{{ $prescription_detail->prescription->doctor_name }}</td>
                     <td class="border px-4 py-2">{{ $prescription_detail->medication->name }}</td>
                     <td class="border px-4 py-2">{{ $prescription_detail->dosage }}</td>
@@ -37,6 +51,10 @@
                 @endforeach
             </tbody>
         </table>
+         <!-- Pagination Links -->
+    <div class="mt-4">
+        {{ $prescriptiondetail->appends(['search' => request('search')])->links() }}
+    </div>
     </div>
 </div>
 @endsection

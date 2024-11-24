@@ -9,6 +9,17 @@
         <a href="{{route('pharmacist.inventory.low_stock')}}"class="bg-yellow-500 text-white p-3 rouned-md">stock</a>
 
     </div>
+    <div class="mt-4 mb-6">
+    <form action="{{ route('pharmacist.inventory.index') }}" method="GET" class="flex items-center">
+        <input type="text" name="search" placeholder="Search by medication name..." 
+               class="border px-4 py-2 rounded-lg focus:ring focus:ring-blue-300 w-1/3" 
+               value="{{ request('search') }}">
+        <button type="submit" class="ml-2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+            Search
+        </button>
+    </form>
+</div>
+
     <table class="table table-striped mt-4 w-full border">
         <thead>
             <tr class="bg-gray-300">
@@ -23,7 +34,7 @@
         @foreach($inventory as $item)
 
             <tr class="text-center">
-                <td class="border p-3">{{$item->id }}</td>
+                <td class="border p-3">{{$loop->index + 1 }}</td>
                 <td class="border p-3">{{$item->medication->name}}</td>
                 <td class="border p-3">{{$item->quantity}}</td>
                 <td>
@@ -38,5 +49,9 @@
             @endforeach
         </tbody>
     </table>
+    <!-- Pagination Links -->
+<div class="mt-6">
+    {{ $inventory->appends(['search' => request('search')])->links() }}
+</div>
 </div>
 @endsection

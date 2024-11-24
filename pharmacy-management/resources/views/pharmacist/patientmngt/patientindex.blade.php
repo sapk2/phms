@@ -6,7 +6,7 @@
 <div class="mt-10 text-right"> 
     <a href="{{route('pharmacist.patientmngt.patientcreate')}}" class="bg-blue-600 text-white p-3 rounded-lg">Add Patient</a>
 </div>
-<div class="container mt-6 ">
+<div class="container ">
     <!-- Search form -->
     <form action="{{ route('pharmacist.patientmngt.patientindex') }}" method="GET">
         <div class="form-group">
@@ -32,7 +32,7 @@
             @if($patients->count())
             @foreach($patients as $patient)
             <tr class="text-center">
-            <td class="border p-3">{{ $patient->id }}</td>
+            <td class="border p-3">{{$loop->index + 1 }}</td>
                 <td class="border p-3">{{ $patient->name }}</td>
                 <td class="border p-3">{{ $patient->email }}</td>
                 <td class="border p-3">{{ $patient->phone }}</td>

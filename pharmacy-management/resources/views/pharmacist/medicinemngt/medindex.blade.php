@@ -9,8 +9,8 @@
     <!-- Search form -->
     <form action="{{ route('pharmacist.medicinemngt.medindex') }}" method="GET">
         <div class="form-group">
-            <input type="text" name="search" class="form-control" placeholder="Search medicines..." value="{{ request()->search }}">
-        </div>
+      <input type="text" name="search" class="form-control" placeholder="Search medicines..." value="{{ request()->search }}">
+        </div>      
         <button type="submit" class="py-2.5 px-5 me-2 mt-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Search</button>
     </form>
     <div class="overflow-x-auto">
@@ -30,7 +30,7 @@
             <tbody>
                 @foreach($medicine as $item)
                 <tr>
-                    <td class="border border-gray-300 p-2">{{$item->id}}</td>
+                    <td class="border border-gray-300 p-2">{{$loop->index + 1 }}</td>
                     <td class="border border-gray-300 p-2">{{$item->name}}</td>
                     <td class="border border-gray-300 p-2"> <img src="{{ asset('/storage/medicine/' . $item->photopath) }}" alt="" class="w-16 h-16 object-cover"> <!-- Displaying image --></td>
                     <td class="border border-gray-300 p-2">{{$item->description}}</td>
@@ -46,7 +46,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{$medicine->links()}}
+        {{ $medicine->appends(['search' => request('search')])->links() }}
     </div>
 </div>
 @endsection
