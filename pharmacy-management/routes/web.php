@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\dashboardcontroller;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\Pagecontroller;
@@ -20,11 +21,13 @@ use Illuminate\Routing\Route as RoutingRoute;
 
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
-// Route::get('/', [Pagecontroller::class, 'home'])->name('home');
+
 Route::get('/', [Pagecontroller::class, 'index'])->name('index');
 Route::get('/products', [PageController::class, 'product'])->name('products');
 Route::get('/about-us', [PageController::class, 'aboutus'])->name('aboutus');
-
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/?user', [Pagecontroller::class, 'index'])->name('dashboard');
 /**pharmacist panel**/
 Route::middleware([ispharmacist::class])->group(function () {
     Route::get('/pharmacist/dashboard', [dashboardcontroller::class, 'dashboard'])->name('pharmacist.dashboard');
@@ -133,8 +136,12 @@ Route::middleware([ispharmacist::class])->group(function () {
 
 
 
+    Route::get('/pharmacist/contacts', [ContactController::class, 'show'])->name('pharmacist.contacts.index');
+
     // Update order status
     //Route::post('/orders/{id}/status/{status}', [OrderController::class, 'status'])->name('orders.status');
 });
+
+
 
 require __DIR__ . '/auth.php';

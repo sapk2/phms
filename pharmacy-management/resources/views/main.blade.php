@@ -24,17 +24,25 @@
                     <a href="{{ route('index') }}" class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
                     <a href="{{ route('products') }}" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Products</a>
                     <a href="#about" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
-                    <a href="#" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    <a href="#contact" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
                 </div>
 
                 @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end">
                     @auth
+                    @if(Auth::user()->role == 'admin')
                     <a
-                        href="{{ url('/dashboard') }}"
+                        href="{{ route('pharmacist.dashboard') }}"
                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-blue">
                         Dashboard
                     </a>
+                    @else
+                    <span
+
+                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-blue">
+                        {{Auth::user()->name}}
+                    </span>
+                    @endif
                     @else
                     <a
                         href="{{ route('login') }}"
@@ -105,6 +113,9 @@
 
                 <li class="mr-4">
                     <a href="mailto:{{ $footer->email }}" class="mr-4 hover:underline md:mr-6">✉️{{ $footer->email }}</a>
+                </li>
+                <li>
+                    <span> contact us: {{$footer->phone}}</span>
                 </li>
             </ul>
 

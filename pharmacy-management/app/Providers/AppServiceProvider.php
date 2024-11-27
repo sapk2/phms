@@ -21,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $settings = site_setting::first();
+        $footer = site_setting::first();
         view()->share('settings', $settings);
+        view()->share('footer', $footer);
     }
 }

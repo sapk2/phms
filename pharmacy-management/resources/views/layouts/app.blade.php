@@ -141,7 +141,7 @@ General setting</div></a>
 Footer
    </div>
 </a>
-                  <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-address-card"> Profile</i></a>
+                 
                </div>
             </div>
             <script>
@@ -166,7 +166,8 @@ Footer
                   dropdownMenu.classList.add('hidden');
                });
             </script>
-
+            <a href="{{route('pharmacist.contacts.index')}}" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-address-card"> Contacts</i></a>
+            <a href="" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1"><i class="fa-solid fa-address-card"> Profile</i></a>
             <form action="{{route('logout')}}" method="POST" class="px-4 py-2 hover:bg-gray-300 block border-b border-gray-300 border-l-blue-300 border-l-2 ml-2 mt-1">
                @csrf
                <button type="submit" class="w-full text-left">

@@ -13,11 +13,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class Pagecontroller extends Controller
 {
-    // public function home(){
-        
-    //     return view('welcome');
 
-    // }
     public function index()
     {
         $medicines = medication::limit(4)->get();
@@ -36,16 +32,35 @@ class Pagecontroller extends Controller
     }
     
 
-    public function contact() {
-        return view('contact');
+    //products
+    public function product(Request $request)
+    {
+        // Fetch all medicines
+        $query = medication::query();
+    
+        // Search functionality
+        if ($request->filled('search')) { // Ensure the 'search' parameter is not empty
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+    
+        // Filter by category (medicine name) if selected
+        if ($request->has('category') && $request->category) {
+            $query->where('name', $request->category);
+        }
+    
+        // Get the filtered medicines
+        $medicines = $query->get();
+    
+        // Get unique medicine names for the filter dropdown
+        $medicineNames = medication::pluck('name')->unique();
+    
+        // Fetch the settings
+        $settings = site_setting::first();
+    
+        return view('product', compact('settings', 'medicines', 'medicineNames'));
     }
-    public function product()
-{
-    $medicines = medication::all(); // Fetch all medicines
-    $settings = site_setting::first(); // Fetch the settings
+    
 
-    return view('product', compact('settings', 'medicines'));
-}
 public function footer(){
     $footer=footer::all();
     $settings=site_setting::first();
