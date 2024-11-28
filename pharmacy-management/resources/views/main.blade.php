@@ -38,11 +38,17 @@
                     </a>
                     @else
                     <span
-
                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-blue">
                         {{Auth::user()->name}}
                     </span>
                     @endif
+                    <!-- Logout Button -->
+                    <form action="{{ route('logout') }}" method="POST" class="inline-block ml-3">
+                        @csrf
+                        <button type="submit" class="text-red-600 hover:text-red-800 transition">
+                            Logout
+                        </button>
+                    </form>
                     @else
                     <a
                         href="{{ route('login') }}"
