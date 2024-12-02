@@ -12,6 +12,7 @@ use App\Models\Sale_mngt;
 use App\Models\site_setting;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -119,22 +120,22 @@ class pharmaciancontroller extends Controller
 
     //medication controller
     public function medindex(Request $request)
-{
-    $search = $request->input('search');
-    $query = Medication::query(); // Initialize query builder
+    {
+        $search = $request->input('search');
+        $query = Medication::query(); // Initialize query builder
 
-    if ($search) {
-        // Apply search conditions
-        $query->where('name', 'LIKE', '%' . $search . '%')
-              ->orWhere('description', 'LIKE', '%' . $search . '%');
+        if ($search) {
+            // Apply search conditions
+            $query->where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('description', 'LIKE', '%' . $search . '%');
+        }
+
+        // Paginate the results, applying search filters if any
+        $medicine = $query->paginate(5);
+
+        // Pass medicines and search term to the view
+        return view('pharmacist.medicinemngt.medindex', compact('medicine', 'search'));
     }
-
-    // Paginate the results, applying search filters if any
-    $medicine = $query->paginate(5);
-
-    // Pass medicines and search term to the view
-    return view('pharmacist.medicinemngt.medindex', compact('medicine', 'search'));
-}
 
     public function medcreate()
     {
@@ -173,30 +174,30 @@ class pharmaciancontroller extends Controller
             'medicine_types' => 'required',
             'photopath' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-    
+
         $medicine = medication::find($id);
         $data['photopath'] = $medicine->photopath;
-    
+
         if ($request->hasFile('photopath')) {
             $photoname = time() . '.' . $request->photopath->extension();
             $request->photopath->move(public_path('/img'), $photoname);
-    
+
             // Delete old photo if it exists
             if ($medicine->photopath) {
                 File::delete(public_path('/img/' . $medicine->photopath));
             }
-    
+
             $data['photopath'] = $photoname;
         }
-    
+
         $medicine->update($data);
         return redirect(route('pharmacist.medicinemngt.medindex'))->with('message', 'Updated successfully');
     }
-    
+
     public function meddelete($id)
     {
         $medicine = medication::find($id);
-        File::delete(public_path('/img'.$medicine->photopath));
+        File::delete(public_path('/img' . $medicine->photopath));
 
         $medicine->delete();
         return redirect()->route('pharmacist.medicinemngt.medindex')->with('deleted sucessfully');
@@ -212,48 +213,49 @@ class pharmaciancontroller extends Controller
             $query->whereHas('prescription', function ($q) use ($search) {
                 $q->where('doctor_name', 'LIKE', '%' . $search . '%');
             })
-            ->orWhereHas('medication', function ($q) use ($search) {
-                $q->where('name', 'LIKE', '%' . $search . '%');
-            });
+                ->orWhereHas('medication', function ($q) use ($search) {
+                    $q->where('name', 'LIKE', '%' . $search . '%');
+                });
         }
         $prescriptiondetail = $query->paginate(5);
         return view('pharmacist.prescriptiondetail.prescribeindex', compact('prescriptiondetail', 'search'));
     }
-    
 
-    public function prescribecreate(){
+
+    public function prescribecreate()
+    {
         $prescriptiondetail = prescription::all();
         $medication = medication::all();
-        return view('pharmacist.prescriptiondetail.prescribecreate',compact('prescriptiondetail','medication'));
-   
+        return view('pharmacist.prescriptiondetail.prescribecreate', compact('prescriptiondetail', 'medication'));
     }
-    public function prescribestore(Request $request){
+    public function prescribestore(Request $request)
+    {
         $request->validate([
-            'prescription_id'=>'required',
-            'medication_id'=>'required',
-            'dosage'=>'required',
-            'quantity'=>'required',
+            'prescription_id' => 'required',
+            'medication_id' => 'required',
+            'dosage' => 'required',
+            'quantity' => 'required',
         ]);
         prescription_details::create($request->all());
-        return redirect()->route('pharmacist.prescriptiondetail.prescribeindex')->with('sucess','prescription detail created sucessfully');
-
+        return redirect()->route('pharmacist.prescriptiondetail.prescribeindex')->with('sucess', 'prescription detail created sucessfully');
     }
     public function show($id)
     {
         $settings = site_setting::first();
         $prescriptiondetail = prescription_details::with(['prescription', 'medication'])->findOrFail($id);
-        return view('pharmacist.prescriptiondetail.show', compact('prescriptiondetail','settings'));
+        return view('pharmacist.prescriptiondetail.show', compact('prescriptiondetail', 'settings'));
     }
-    
+
     public function prescribeedit($id)
     {
         $prescriptiondetail = prescription_details::findOrFail($id);
         $prescriptions = Prescription::all();  // Fetch the list of prescriptions
         $medications = Medication::all(); // Fetch the list of medications
-        
+
         return view('pharmacist.prescriptiondetail.prescribeedit', compact('prescriptiondetail', 'prescriptions', 'medications'));
     }
-    public function prescribeupdate(Request $request, $id){
+    public function prescribeupdate(Request $request, $id)
+    {
         $request->validate([
             'prescription_id' => 'required',
             'medication_id' => 'required',
@@ -262,24 +264,26 @@ class pharmaciancontroller extends Controller
         ]);
         $prescriptiondetail = prescription_details::findOrFail($id);
         $prescriptiondetail->update($request->all());
-        
+
         // Correct the redirect to the index route after updating
         return redirect()->route('pharmacist.prescriptiondetail.prescribeindex')->with('success', 'Prescription detail updated successfully');
     }
-    
-    public function prescribedelete($id) {
+
+    public function prescribedelete($id)
+    {
         $prescriptiondetail = prescription_details::findOrFail($id);  // Pass $id to findOrFail
-        $prescriptiondetail->delete(); 
+        $prescriptiondetail->delete();
         return redirect()->route('pharmacist.prescriptiondetail.prescribeindex');
     }
 
     //// Display the settings edit form
-    public function siteedit(){
-        $settings=site_setting::first() ?? new site_setting();
-        return view('pharmacist.settings.siteedit',compact('settings'));
-
+    public function siteedit()
+    {
+        $settings = site_setting::first() ?? new site_setting();
+        return view('pharmacist.settings.siteedit', compact('settings'));
     }
-    public function siteupdate(Request $request){
+    public function siteupdate(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'tagline' => 'required',
@@ -289,23 +293,54 @@ class pharmaciancontroller extends Controller
             'favicon' => 'required',
             'admin_email' => 'required', // Ensure the email is valid
         ]);
-    
+
         $settings = site_setting::first() ?? new site_setting();
-        
+
         // Handle logo upload
         if ($request->hasFile('logo')) {
             // Store the logo in the 'img' directory and get the path
             $path = $request->file('logo')->store('img', 'public'); // Store in the 'img' directory
             $settings->logo = $path; // Set the path in the settings
         }
-    
+
         // Fill other settings, excluding the logo
         $settings->fill($request->except('logo')); // Exclude logo to avoid overwriting
         $settings->save();
-    
+
         return redirect()->route('pharmacist.settings.siteedit')->with('success', 'Settings updated successfully.');
     }
-    
-    
-}
 
+    //profile//
+
+
+    public function profileshow()
+    {
+        $pharmacist = Auth::user();
+        return view('pharmacist.profile.show', compact('pharmacist'));
+    }
+    public function edit()
+    {
+        $pharmacist = Auth::user();
+        return view('pharmacist.profile.edit', compact('pharmacist'));
+    }
+    public function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
+        ]);
+
+        $pharmacist = Auth::user();
+
+        // Check if $pharmacist supports the save method
+        if (method_exists($pharmacist, 'save')) {
+            $pharmacist->name = $request->name;
+            $pharmacist->email = $request->email;
+            $pharmacist->save();
+
+            return redirect()->route('pharmacist.profile.show')->with('success', 'Profile updated successfully.');
+        }
+
+        return back()->withErrors('Failed to update profile. Please contact support.');
+    }
+}

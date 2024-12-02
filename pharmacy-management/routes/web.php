@@ -115,7 +115,10 @@ Route::middleware([ispharmacist::class])->group(function () {
     Route::get('/admin/about', [AboutUsController::class, 'index'])->name('pharmacist.about.index');
     Route::put('/admin/about', [AboutUsController::class, 'update'])->name('pharmacist.about.update');
 
-
+    // Profile Routes for Pharmacist
+    Route::get('/pharmacist/profile', [pharmaciancontroller::class, 'profileshow'])->name('pharmacist.profile.show');
+    Route::get('/pharmacist/profile/edit', [pharmaciancontroller::class, 'edit'])->name('pharmacist.profile.edit');
+    Route::post('/pharmacist/profile/update', [pharmaciancontroller::class, 'update'])->name('pharmacist.profile.update');
 
     //carts
     Route::post('cart/store', [cartController::class, 'store'])->name('pharmacist.cart.store');

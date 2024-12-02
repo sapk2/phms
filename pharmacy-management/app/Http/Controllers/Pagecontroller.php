@@ -30,7 +30,9 @@ class Pagecontroller extends Controller
         $settings = Site_Setting::first(); // Fetch site settings if needed
         return view('about', compact('about', 'settings')); // Pass data to the view
     }
-    
+    public function contact(){
+        return view('contact');
+    }
 
     //products
     public function product(Request $request)

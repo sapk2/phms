@@ -33,7 +33,7 @@ class ContactController extends Controller
 
     public function show()
     {
-        $contacts = Contact::latest()->get();
+        $contacts = Contact::latest()->latest()->paginate(5);
         return view('pharmacist.contacts.index', compact('contacts'));
     }
 }

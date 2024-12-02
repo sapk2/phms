@@ -23,12 +23,12 @@
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <a href="{{ route('index') }}" class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
                     <a href="{{ route('products') }}" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Products</a>
-                    <a href="#about" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
-                    <a href="#contact" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    <a href="{{route('aboutus')}}" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                    <a href="{{route('contact')}}" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
                 </div>
 
                 @if (Route::has('login'))
-                <nav class="-mx-3 flex flex-1 justify-end">
+                <nav class="-mx-3 flex flex-1 justify-end items-center">
                     @auth
                     @if(Auth::user()->role == 'admin')
                     <a
@@ -37,35 +37,42 @@
                         Dashboard
                     </a>
                     @else
-                    <span
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-blue">
-                        {{Auth::user()->name}}
-                    </span>
+                    <div class="flex items-center">
+                        <!-- User Name -->
+                        <span class="text-gray-900 font-medium mr-4">
+                            {{ Auth::user()->name }}
+                        </span>
+                        <!-- Logout Button -->
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="text-red-600 hover:text-red-800 transition ">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
                     @endif
-                    <!-- Logout Button -->
-                    <form action="{{ route('logout') }}" method="POST" class="inline-block ml-3">
-                        @csrf
-                        <button type="submit" class="text-red-600 hover:text-red-800 transition">
-                            Logout
-                        </button>
-                    </form>
                     @else
-                    <a
-                        href="{{ route('login') }}"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-blue">
-                        Log in
-                    </a>
+                    <div class="flex space-x-1">
+                        <a
+                            href="{{ route('login') }}"
+                            class="text-gray-100 bg-blue-500 border border-gray-300 focus:outline-none hover:bg-blue-600 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                            Login
+                        </a>
 
-                    @if (Route::has('register'))
-                    <a
-                        href="{{ route('register') }}"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-blue">
-                        Register
-                    </a>
-                    @endif
+                        @if (Route::has('register'))
+                        <a
+                            href="{{ route('register') }}"
+                            class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                            Register
+                        </a>
+                        @endif
+                    </div>
+
+
                     @endauth
                 </nav>
                 @endif
+
 
 
             </div>

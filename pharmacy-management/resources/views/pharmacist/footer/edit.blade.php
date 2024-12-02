@@ -10,7 +10,7 @@
         @method('PUT')
         <div class="flex flex-wrap lg:flex-nowrap gap-6">
             <!-- First Column: Description and Contact Information -->
-            <div class="w-full lg:w-1/2 bg-gray-100 p-6 rounded-lg shadow-md">
+            <div class="w-full lg:w-1/2 bg-blue-100 p-6 rounded-lg shadow-md">
                 <h2 class="text-lg font-bold mb-4">Description and Contact Information</h2>
                 <hr class="border-red-300">
 
@@ -53,8 +53,9 @@
             </div>
 
             <!-- Second Column: Social Media URLs and Copyright -->
-            <div class="w-full lg:w-1/2 bg-gray-100 p-6 rounded-lg shadow-md">
-                <h2 class="text-lg font-bold mb-4">Social Media and Copyright</h2>
+            <div class="w-full lg:w-1/2 bg-blue-100 p-6 rounded-lg shadow-md">
+                <h2 class="text-lg font-bold mb-4 ">Social Media and Copyright</h2>
+                <hr class="border-red-300">
 
                 <div class="mb-4">
                     <label for="facebook_url" class="block font-medium">Facebook URL</label>
@@ -86,7 +87,7 @@
             </div>
         </div>
         <div class="flex justify-center mt-6">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save Changes</button>
+            <button type="submit" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save Changes</button>
         </div>
     </form>
 </div>
